@@ -1,0 +1,3 @@
+Transaction_ID,User_ID,Amount,Location,Needs_Review
+TXN_1002,U_102,1200.5,Los Angeles,True
+TXN_1004,U_104,3000.0,Miami,True
