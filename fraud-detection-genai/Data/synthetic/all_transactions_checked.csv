@@ -1,6 +1,0 @@
-Transaction_ID,User_ID,Amount,Location,Needs_Review
-TXN_1001,U_101,50.0,New York,False
-TXN_1002,U_102,1200.5,Los Angeles,True
-TXN_1003,U_103,45.0,Chicago,False
-TXN_1004,U_104,3000.0,Miami,True
-TXN_1005,U_105,150.0,Dallas,False

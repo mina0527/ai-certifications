@@ -70,6 +70,17 @@ fraud-detection-genai/
 
 ---
 
+### Key Findings
+- The number and parameters of the synthetic data could be modify depending of the needs.
+ex. the amount threshold could be modify for ML learning purposes.
+- Using AI to analyze the data could provide a better overview of average transactions amounts, min, max, and other different patterns that we would like to highlight.
+- The model successfully detected fraudulent transactions with X% accuracy
+- Synthetic data generation improved model performance by X%
+- The framework identified X key fraud patterns in the transaction data
+
+---
+
+
 ## ▶️ How to Run
 
 ```bash
