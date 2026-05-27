@@ -74,6 +74,7 @@ fraud-detection-genai/
 | False Positives (False Alarms): | 0 | Excellent for customer experience (no false alarm) |
 | False Negatives (Missed Fraud): | 40 | HIgh Risk: Criminals are operatin successfully below $1k |
 | True Negatives  (Correct Legit): | 956 | |
+|---|
 | Precision | *100%* | Every alert we generated was a real fraud |
 | Recall | *9.09%* | Critical weakness: We missed 90% of the fraudulent activity |
 
