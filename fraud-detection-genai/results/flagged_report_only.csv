@@ -1,0 +1,5 @@
+Transaction_ID,User_ID,Timestamp,Amount,Location,Is_Fraud,Needs_Review,Review_Reason
+TXN_1044,U_640,2023-01-15 01:04:35,1086.11,"San Antonio, TX",1,True,Transaction exceeds $1000
+TXN_1560,U_742,2023-01-04 00:15:16,1037.05,"Houston, TX",1,True,Transaction exceeds $1000
+TXN_1802,U_641,2023-01-27 01:00:41,1033.5,"Houston, TX",1,True,Transaction exceeds $1000
+TXN_1918,U_919,2023-01-25 01:26:48,1012.02,"Phoenix, AZ",1,True,Transaction exceeds $1000
