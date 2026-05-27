@@ -70,10 +70,10 @@ fraud-detection-genai/
 |---|---|---|
 | Accuracy | *96.00%* | High, but misleading due to class imbalance|
 |---------|
-| True Positives  (Caught Fraud): 4 | |
-| False Positives (False Alarms): 0 | Excellent for customer experience (no false alarm) |
-| False Negatives (Missed Fraud): 40 | HIgh Risk: Criminals are operatin successfully below $1k |
-| True Negatives  (Correct Legit): 956 | |
+| True Positives  (Caught Fraud): | 4 | |
+| False Positives (False Alarms): | 0 | Excellent for customer experience (no false alarm) |
+| False Negatives (Missed Fraud): | 40 | HIgh Risk: Criminals are operatin successfully below $1k |
+| True Negatives  (Correct Legit): | 956 | |
 | Precision | *100%* | Every alert we generated was a real fraud |
 | Recall | *9.09%* | Critical weakness: We missed 90% of the fraudulent activity |
 
