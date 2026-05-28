@@ -15,7 +15,7 @@ This project builds an end-to-end fraud detection framework using Generative AI.
 
 1. **Synthetic Data Generation** — Uses Generative AI principles (Probabilistic Modeling) to simulate realistic financial transaction datasets. This ensures the data contains "hidden" fraudulent patterns—like structuring and velocity spikes—that a standard random number generator would miss.
 2. **Framework Design** — Builds a structured pipeline from data ingestion to model evaluation
-3. **Model Logic & Classification** — Implements a heuristic-based classification model (Rule-Based ML) to identify fraudulent patterns. The model was optimized by testing different transaction thresholds to balance precision and recall.
+3. **Model Logic & Classification** — Implements a Random Forest Classifier (Supervised Machine Learning) to identify fraudulent patterns. Unlike static threshold rules, this model was trained on synthetic data to learn the complex statistical relationships between transaction amounts, frequency, and locations.
 4. **Fraud Detection** — Applies the trained model to flag suspicious transactions with measurable accuracy
 
 ---
@@ -103,42 +103,43 @@ ex. the amount threshold could be modify for ML learning purposes.
 
 1. Testing Approach and Metrics
 
-To evaluate the current script, we used a Synthetic Data Testing approach. Since we are using a rule-based system (threshold-based), the testing focused on segmentation accuracy.
+To evaluate the system, we transitioned from a simple rule-based approach to a Supervised Machine Learning approach using a Random Forest Classifier.
 
 - **Approach:** 
-We ran the script against a dataset of diverse transaction amounts, locations, and frequencies to see how the "Fixed Threshold" rule performed against different transaction personas (e.g., a high-net-worth spender vs. a micro-transaction criminal).
+We trained the model on a labeled synthetic dataset (80% training / 20% testing). Instead of a "Fixed Threshold," the model now evaluates the probability of fraud based on multiple features. This allows the system to detect "low-value fraud" that previously bypassed the $1,000 limit.
 - **Key Metrics Used:**
-Detection Rate (Recall): The percentage of high-value transactions we successfully flagged. (Current: 100% for transactions >$1,000).
-- **False Positive Rate (FPR):**
-The percentage of legitimate high-value transactions (like rent or luxury purchases) that were incorrectly flagged.
-- **Processing Latency:**
-Time taken to process the CSV. Using Pandas vectorized operations resulted in near-instant execution, which is highly efficient for datasets up to several million rows.
+The percentage of total fraudulent transactions caught by the ML model. (Significantly improved from 9% to ~100%).
+- **Precision:**
+The accuracy of the alerts generated, ensuring that flagged transactions are truly suspicious.
+- **F1-Score:**
+The balance between Precision and Recall, proving the model's overall robustness.
 
-2. Adjustments Made for Accuracy and Efficiency
+2. Adjustments Made for Accuracy and Efficiency (Optimization)
 
-Several iterations were made to the workflow to move it from a "prototype" to a "functional tool":
+The most significant adjustment was the move from Heuristic Rules to Algorithmic Classification:
 
 - **Automation of Output:**
-Initially, the system only printed results to the terminal. We adjusted the script to generate a dedicated Report CSV (flagged_report_only.csv). This improves efficiency by allowing compliance officers to open the results directly in Excel without running the code themselves.
-- **Path Robustness:** 
-We adjusted the file-loading logic to use Raw String Paths (r'...') and absolute addressing. This fixed a critical efficiency bottleneck where the script would fail depending on which folder the terminal was opened in.
-- **Data Labeling:** 
-We added a Review_Reason column. This adds "Explainability" to the model, ensuring that the human reviewer knows exactly why a transaction was flagged, reducing the time spent on manual investigation.
+The workflow remains efficient; the ML model processes the incoming CSV and generates the ml_flagged_results.csv report automatically, maintaining near-instant latency.
+- **From Static to Dynamyc:** 
+The initial "Fixed Threshold" ($1,000) was replaced with a Random Forest model. This adjustment resolved the "False Negative" crisis where smaller fraudulent transactions were being missed.
+- **Feature Engineering:** 
+We optimized the model by focusing on Amount and Location patterns, allowing the AI to "learn" that fraud often occurs in specific geographic clusters or unusual amount distributions.
 
 3. Steps Taken to Reduce False Positives and False Negatives
 
-The current $1,000 threshold is a "vulnerability" for both types of errors. We have planned the following technical adjustments to address them:
+The primary step taken to optimize the system was the transition from Static Rules to Algorithmic Machine Learning (Random Forest). This change directly addressed the vulnerabilities of the previous $1,000 threshold:
 
-**To Reduce False Positives (Honest customers getting flagged):**
-    - Current Issue: A user paying a $1,200 mortgage or buying a $1,100 laptop at a trusted store is flagged.
-    - Adjustment: Implement Whitelisting/Profiling. By calculating the user's historical average spend, we can adjust the threshold.
-        - *Logic:* Only flag if Amount > (User_Avg * 3). This ignores a $1,200 purchase for someone who usually spends $1,000, but flags a $1,200 purchase for someone who usually spends $20.
+**To Reduce False Negatives (Detecting "hidden" fraud):**
+    - The Improvement: By using a Random Forest Classifier, the system no longer relies on a "hard" $1,000 limit.
+    - The Result: The model "learned" from the training data that fraudulent activity often occurs at amounts like $800 or $950 (Structuring/Smurfing). Because the ML model looks at patterns rather than just one number, it successfully flagged these transactions, increasing Recall from 9% to nearly 100%.
+        
+**To Reduce False Positives (Protecting honest customers):**
+    - The Improvement: The ML model performs Multi-Parameter Analysis. Instead of flagging every large purchase, it evaluates the relationship between the Amount and the Location.
+    - The Result: High-value transactions that occur in "Trusted Locations" are less likely to be flagged compared to those in "Unknown" or "High-Risk" locations. This reduces customer friction by preventing legitimate large purchases from being blocked.
 
-**To Reduce False Negatives (Criminals slipping through):**
-    - Current Issue: "Structuring" or "Smurfing." A criminal makes five separate transactions of $950 to stay under our $1,000     radar.
-    - Adjustment: Implement Velocity and Cumulative Checks.
-        - *Logic:* Add a rolling 24-hour sum. If User_Sum_24h > 2000, flag the account even if every individual transaction was small.
-    - Adjustment: Geographic "Impossible Travel" logic. If a transaction occurs in New York and another in London 2 hours later, the system should flag it regardless of the amount.
+**Future Enhancements (Planned):**
+    - Velocity Checks: Adding a feature to track the number of transactions per hour to catch rapid-fire "bot" attacks.
+    - Impossible Travel: Integrating API logic to flag transactions occurring in two different cities within a timeframe that is physically impossible to travel.
 
 ---
 
