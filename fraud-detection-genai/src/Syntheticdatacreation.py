@@ -56,4 +56,4 @@ df = generate_transaction_data(1000)
 print(df.head())
 
 # Save to CSV
-df.to_csv('synthetictransactions1.csv', index=False)
+df.to_csv('syntheticdata1.csv', index=False)
