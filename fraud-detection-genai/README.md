@@ -68,10 +68,10 @@ fraud-detection-genai/
 | Recall | *9.09%* | *93.18%* |
 
 --- ML MODEL CONFUSION MATRIX (COUNTS) ---
-True Positives  (Fraud Caught): 41
-True Negatives  (Correct Legit): 955
-False Positives (False Alarms):  1
-False Negatives (Missed Fraud):  3
+- True Positives  (Fraud Caught): 41
+- True Negatives  (Correct Legit): 955
+- False Positives (False Alarms):  1
+- False Negatives (Missed Fraud):  3
 
 ---
 
