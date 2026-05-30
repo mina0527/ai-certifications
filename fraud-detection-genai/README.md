@@ -72,7 +72,6 @@ True Positives  (Fraud Caught): 41
 True Negatives  (Correct Legit): 955
 False Positives (False Alarms):  1
 False Negatives (Missed Fraud):  3
-==================================================
 
 ---
 
